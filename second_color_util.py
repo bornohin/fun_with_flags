@@ -76,7 +76,7 @@ def rgb_from_color(color):
 json_url = "color_names.json"
 color_names = None
 
-with open(json_url, 'r') as f:
+with open(./"color_names.json", 'r') as f:
     color_names = json.load(f)
 
 ntc = {
