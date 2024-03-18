@@ -1,4 +1,5 @@
 import json
+import requests
 
 def init_ntc():
     for i in range(len(ntc["names"])):
@@ -73,11 +74,18 @@ def rgb_from_color(color):
         int(color[i : i + 2], 16) for i in range(1, 7, 2)
     ]  # Extract R, G, B components from color string
 
-json_url = "color_names.json"
+json_url = "https://raw.githubusercontent.com/bornohin/fun_with_flags/main/color_names.json"
 color_names = None
 
-with open("./color_names.json", 'r') as f:
-    color_names = json.load(f)
+response = requests.get(json_url)
+
+if response.status_code == 200:
+    # Parse the JSON response into a Python variable
+    color_names = response.json()
+else:
+    print("Failed to fetch JSON data from the URL:", json_url)
+# with open(json_url, 'r') as f:
+#     color_names = json.load(f)
 
 ntc = {
     "init": init_ntc,
