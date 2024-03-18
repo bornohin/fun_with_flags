@@ -3,8 +3,29 @@ import pandas as pd
 from urllib.parse import unquote
 import wikipedia
 
+# This is the main function which generates the primary data.
+def gen_data(path, csv_file_name):
+  '''
+  Usage: my_df = gen_data('./', 'my_file.csv')
+  This function returns a dataframe.
+  '''
+  csv_found = False
+  # Checks if a file exists in a certain directory.
+  file_path = os.path.join(path, csv_file_name)
+  # Use the os.path.exists() function to check if the file exists.
+  csv_found = os.path.exists(file_path)
+
+  if csv_found:
+    print('The file exists. Reading from csv.')
+    flags = pd.read_csv(file_path)
+  else:
+    print('The file does not exist. Creating new Dataframe.')
+    flags = gen_data_helper(path, csv_file_name)
+
+  return flags
+
 # Gallery of sovereign state flags. Make initial Dataframe.
-def create_dataframe(path, csv_file_name):
+def gen_data_helper(path, csv_file_name):
   '''
   This function takes in a path and a complete csv file name
   Ex. path = './', csv_file_name = 'my_csv_file.csv'.
@@ -38,26 +59,7 @@ def create_dataframe(path, csv_file_name):
 
   return flags
 
-# This is the main function which generates the primary data.
-def gen_data(path, csv_file_name):
-  '''
-  Usage: my_df = gen_data('./', 'my_file.csv')
-  This function returns a dataframe.
-  '''
-  csv_found = False
-  # Checks if a file exists in a certain directory.
-  file_path = os.path.join(path, csv_file_name)
-  # Use the os.path.exists() function to check if the file exists.
-  csv_found = os.path.exists(file_path)
 
-  if csv_found:
-    print('The file exists. Reading from csv.')
-    flags = pd.read_csv(file_path)
-  else:
-    print('The file does not exist. Creating new Dataframe.')
-    flags = create_dataframe(path, csv_file_name)
-
-  return flags
 
 # my_df = gen_data('./', 'my_file.csv')
 # print(my_df.head())
