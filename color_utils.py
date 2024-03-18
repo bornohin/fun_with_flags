@@ -8,7 +8,7 @@ def init_ntc():
         ntc["names"][i].extend(rgb)
         ntc["names"][i].extend(hsl)
 
-def name(color):
+def color_name(color):
     color = color.upper()
     if len(color) < 3 or len(color) > 7:
         return ["#000000", "Invalid Color: " + color, False]
@@ -81,7 +81,7 @@ with open(./"color_names.json", 'r') as f:
 
 ntc = {
     "init": init_ntc,
-    "name": name,
+    "name": color_name,
     "hsl": hsl_from_color,
     "rgb": rgb_from_color,
     "names": color_names,
